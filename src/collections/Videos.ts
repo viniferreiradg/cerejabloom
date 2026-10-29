@@ -30,8 +30,8 @@ export const Videos: CollectionConfig = {
     {
       name: 'youtubeEmbedUrl',
       type: 'text',
-      label: 'URL de embed do YouTube',
-      admin: { description: 'Ex: https://www.youtube.com/embed/XXXXXXXXXXX' },
+      label: 'Link do YouTube',
+      admin: { description: 'Cole o link do vídeo no YouTube (de assistir, compartilhar ou embed) — qualquer formato funciona.' },
       required: true,
     },
   ],

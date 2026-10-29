@@ -1,4 +1,5 @@
 import type { Landing, VideoDoc } from '@/lib/data'
+import YoutubeFacade from '@/components/YoutubeFacade'
 
 export default function VideosSection({ landing, videos }: { landing: Landing; videos: VideoDoc[] }) {
   if (!videos.length) return null
@@ -14,14 +15,7 @@ export default function VideosSection({ landing, videos }: { landing: Landing; v
           {videos.map((v) => (
             <div className="video-card" key={v.id}>
               <div className="video-frame">
-                <iframe
-                  src={v.youtubeEmbedUrl}
-                  title={`Cereja Bloom - ${v.titulo}`}
-                  loading="lazy"
-                  allowFullScreen
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                />
+                <YoutubeFacade url={v.youtubeEmbedUrl} title={`Cereja Bloom - ${v.titulo}`} />
               </div>
               <h3>{v.titulo}</h3>
               <p>{v.subtitulo}</p>
