@@ -1,0 +1,206 @@
+/*
+ * Tema do admin (o mesmo boilerplate do portfolio/joycombo), inspirado no
+ * Sanity Studio: cinzas frios, tipografia Inter, índigo da marca como cor de
+ * ação. Fica fora das @layer do Payload, então sobrepõe os estilos padrão
+ * sem precisar de !important.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --style-radius-s: 4px;
+  --style-radius-m: 6px;
+  --style-radius-l: 10px;
+
+  /* Índigo da marca Cereja Bloom */
+  --admin-accent: rgb(58, 73, 167);
+  --admin-accent-hover: rgb(45, 58, 138);
+  --admin-accent-soft: rgba(58, 73, 167, 0.1);
+}
+
+html[data-theme='dark'] {
+  --admin-accent: rgb(95, 111, 213);
+  --admin-accent-hover: rgb(130, 144, 230);
+  --admin-accent-soft: rgba(95, 111, 213, 0.16);
+}
+
+body {
+  letter-spacing: -0.005em;
+}
+
+/* Botão principal (Salvar, Publicar, Criar) na cor da marca */
+.btn--style-primary:not(.btn--disabled) {
+  --bg-color: var(--admin-accent);
+  --hover-bg: var(--admin-accent-hover);
+  --color: #fff;
+  --hover-color: #fff;
+}
+
+/* Menu lateral mais leve. O item ativo é o que tem o indicador do Payload */
+.nav {
+  background: var(--theme-elevation-50);
+  border-right: 1px solid var(--theme-elevation-100);
+}
+
+.nav-group__toggle {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--theme-elevation-500);
+}
+
+.nav__link {
+  border-radius: var(--style-radius-m);
+  padding-inline: 8px;
+  margin-inline: -8px;
+}
+
+.nav__link:hover {
+  background: var(--theme-elevation-100);
+}
+
+.nav__link:has(.nav__link-indicator) {
+  background: var(--admin-accent-soft);
+  color: var(--admin-accent);
+  font-weight: 500;
+}
+
+/* Campos: borda fina, foco na cor da marca */
+.field-type input,
+.field-type textarea,
+.react-select .rs__control {
+  border-radius: var(--style-radius-m);
+}
+
+.field-type input:focus,
+.field-type textarea:focus,
+.react-select .rs__control--is-focused {
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px var(--admin-accent-soft);
+}
+
+.field-label {
+  font-weight: 500;
+}
+
+.field-description {
+  color: var(--theme-elevation-500);
+}
+
+/* Abas do documento no estilo "segmented" */
+.tabs-field__tab-button {
+  border-radius: var(--style-radius-m);
+}
+
+.tabs-field__tab-button--active {
+  color: var(--admin-accent);
+}
+
+/* Grupos recolhíveis e blocos com cara de cartão */
+.collapsible {
+  border-radius: var(--style-radius-l);
+  border-color: var(--theme-elevation-150);
+}
+
+.collapsible__toggle-wrap {
+  border-radius: var(--style-radius-l) var(--style-radius-l) 0 0;
+}
+
+/* Cartões do dashboard */
+.card {
+  border-radius: var(--style-radius-l);
+  border: 1px solid var(--theme-elevation-100);
+  box-shadow: none;
+}
+
+.card:hover {
+  border-color: var(--admin-accent);
+}
+
+/* Tabela de listagem mais respirada */
+.table td,
+.table th {
+  padding-block: 12px;
+}
+
+.table tbody tr:hover td {
+  background: var(--theme-elevation-50);
+}
+
+/* Miniaturas nas listagens (fotos, capas, thumbs): só a imagem, maior */
+.cell-foto .file__filename,
+.cell-thumb .file__filename,
+.cell-imagem .file__filename {
+  display: none;
+}
+
+.cell-foto .file__thumbnail,
+.cell-thumb .file__thumbnail,
+.cell-imagem .file__thumbnail {
+  width: 64px;
+  max-width: none;
+  height: 64px;
+  border-radius: var(--style-radius-m);
+  overflow: hidden;
+}
+
+.cell-foto .file__thumbnail img,
+.cell-thumb .file__thumbnail img,
+.cell-imagem .file__thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*
+ * Ícones do menu lateral. Cada link do menu tem um id fixo do Payload
+ * (nav-<collection> / nav-global-<global>); o ícone entra como máscara,
+ * então herda a cor do texto (inclusive no ativo).
+ */
+.nav__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-block: 7px;
+}
+
+.nav__link::before {
+  content: "";
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  background-color: currentColor;
+  opacity: 0.75;
+  -webkit-mask: var(--nav-icon) center / contain no-repeat;
+  mask: var(--nav-icon) center / contain no-repeat;
+}
+
+.nav__link:has(.nav__link-indicator)::before {
+  opacity: 1;
+}
+
+/* Página inicial: monitor */
+#nav-global-landing { --nav-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2h16v2H4zm0 14h16v2H4zM2 4h2v12H2zm18 0h2v12h-2zm-9 14h2v2h-2zm-3 2h8v2H8z"/></svg>'); }
+/* Integrantes: pessoas */
+#nav-integrantes { --nav-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="8" cy="8" r="3.5"/><circle cx="17" cy="9" r="3"/><path d="M2 20c0-3.5 2.7-6 6-6s6 2.5 6 6v1H2v-1Z"/><path d="M15 15.2c2.6.4 4 2.4 4 4.8v1h-3.2"/></svg>'); }
+/* Músicas: nota musical */
+#nav-musicas { --nav-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>'); }
+/* Vídeos: play */
+#nav-videos { --nav-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 9v6l5-3Z"/></svg>'); }
+/* Fotos: imagem */
+#nav-fotos { --nav-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m4 17 5-5 4 4 3-3 4 4"/></svg>'); }
+/* Imprensa: jornal */
+#nav-imprensa { --nav-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3h13v16a2 2 0 0 0 2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M17 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 7h8M6 11h8M6 15h5" stroke="currentColor" stroke-width="2" fill="none"/></svg>'); }
+/* Mídias: imagem com +  */
+#nav-media { --nav-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2h10v2H4zm0 18h16v2H4zM2 4h2v16H2zm18 6h2v10h-2zm-6 0h2v2h-2zm-2 2h2v2h-2zm4 0h2v2h-2zm-6 2h2v2h-2zm8 0h2v2h-2zM8 16h2v2H8zm-2 2h2v2H6zM8 6h2v2H8zM6 8h2v2H6zm2 2h2v2H8zm2-2h2v2h-2zm8-6h2v6h-2z"/><path d="M16 4h6v2h-6z"/></svg>'); }
+/* Usuários: pessoa */
+#nav-users { --nav-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10 2h4v4h-4zM3 7h18v2H3zm6 2h2v7H9zm4 0h2v7h-2zm-4 7h2v6H9zm4 0h2v6h-2zm-2-2h2v2h-2z"/></svg>'); }
+/* Configurações: controles deslizantes */
+#nav-global-site-settings { --nav-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M8 14H7v6H5v-6H2v-2h6v2Zm5 6h-2V10h2v10Zm9-2h-3v2h-2v-2h-1v-2h6v2Zm-3-4h-2V4h2v10ZM7 10H5V4h2v6Zm6-4h2v2H9V6h2V4h2v2Z"/></svg>'); }
+
+/* O indicador original (barra lateral) some: o fundo índigo já marca o ativo */
+.nav__link-indicator {
+  display: none;
+}
