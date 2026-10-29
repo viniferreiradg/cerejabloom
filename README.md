@@ -43,6 +43,27 @@ Pode rodar `npm run seed` de novo sem duplicar conteúdo.
   (não é servido pelo Next; depois do seed, as imagens reais ficam em
   `public/media/`, versionadas fora do git).
 
+## Lojinha (`/lojinha`)
+
+A loja de camisetas (projeto original: `pre-venda-camiseta-cereja-bloom`)
+roda dentro deste mesmo app Next.js, em vez de um deploy separado — mesmo
+`git push`, mesmo site na Hostinger. Tudo fica isolado do resto do site:
+
+- `src/app/lojinha/` — todas as rotas da loja (vitrine, carrinho, admin
+  próprio em `/lojinha/admin`, distinto do admin do Payload em `/admin`).
+- `src/lib/lojinha/` e `src/components/lojinha/` — código e componentes só
+  da loja.
+- `src/app/lojinha/globals.css` — Tailwind, importado só pelo layout da
+  loja (`src/app/lojinha/layout.tsx`), então não afeta o resto do site.
+- `src/proxy.ts` — middleware que protege só `/lojinha/admin/*` (login
+  próprio via Supabase Auth); não interfere no `/admin` do Payload.
+- Banco: **Supabase** (não é o Postgres do Payload) — configuração em
+  [`supabase/schema.sql`](supabase/schema.sql), ver instruções no README
+  original do projeto da loja.
+
+Variáveis de ambiente extras (ver `.env.example`): `NEXT_PUBLIC_SUPABASE_URL`
+e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
+
 ## Deploy na Hostinger
 
 Mesmo fluxo do portfólio: app Node.js (hPanel) com integração Git — a
@@ -56,6 +77,8 @@ Variáveis de ambiente a configurar no painel da Hostinger (ver
 - `PAYLOAD_SECRET` — string aleatória de pelo menos 32 caracteres.
 - `NEXT_PUBLIC_SERVER_URL` — `https://cerejabloom.com.br`.
 - `REVALIDATE_SECRET` — outra string aleatória.
+- `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` — da
+  lojinha (Supabase → Project Settings → API Keys / Data API).
 
 Depois do primeiro deploy, acesse `/admin` para criar o usuário e rode
 `npm run seed` (via SSH/terminal da Hostinger) para popular o conteúdo
