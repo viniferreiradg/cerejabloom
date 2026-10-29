@@ -11,10 +11,14 @@ export const Media: CollectionConfig = {
     read: () => true,
   },
   upload: {
-    // Relativo à pasta do projeto em execução, e não a import.meta.url: o
-    // webpack grava no build o caminho absoluto de onde compilou, e a
-    // Hostinger compila numa pasta temporária e depois move o resultado
-    staticDir: path.resolve(process.cwd(), 'public/media'),
+    // Em produção, MEDIA_STATIC_DIR aponta pra uma pasta fora da pasta
+    // versionada do build (que a Hostinger recria do zero a cada deploy),
+    // pra imagens enviadas pelo admin sobreviverem a um novo `git push`.
+    // Sem essa variável (dev local), cai na pasta do projeto como antes —
+    // relativo a process.cwd(), e não a import.meta.url, porque o webpack
+    // grava no build o caminho absoluto de onde compilou, e a Hostinger
+    // compila numa pasta temporária e depois move o resultado.
+    staticDir: process.env.MEDIA_STATIC_DIR || path.resolve(process.cwd(), 'public/media'),
     imageSizes: [
       { name: 'thumbnail', width: 400, height: 300, position: 'centre' },
       { name: 'card', width: 800, height: 600, position: 'centre' },
