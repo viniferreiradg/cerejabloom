@@ -10,6 +10,23 @@ const nextConfig: NextConfig = {
     }
     return config
   },
+  // Links curtos que já estavam divulgados no site antigo (redes sociais,
+  // bio do Spotify, etc.) — mantidos pra não quebrar o que já foi compartilhado.
+  async redirects() {
+    return [
+      {
+        source: '/mar-de-marmara',
+        destination: 'https://ditto.fm/mar-de-marmara',
+        permanent: false,
+      },
+      {
+        source: '/presskit',
+        destination:
+          'https://drive.google.com/drive/folders/1YLFJCYAraAMsO8ciXwnYafeJr1R-mDuj?usp=drive_link',
+        permanent: false,
+      },
+    ]
+  },
 }
 
 export default withPayload(nextConfig)
