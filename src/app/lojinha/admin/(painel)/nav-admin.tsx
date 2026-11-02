@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const LINKS = [
-  { href: "/admin", rotulo: "Pedidos" },
-  { href: "/admin/produtos", rotulo: "Produtos" },
-  { href: "/admin/resumo", rotulo: "Resumo" },
-  { href: "/admin/config", rotulo: "Configurações" },
+  { href: "/lojinha/admin", rotulo: "Pedidos" },
+  { href: "/lojinha/admin/produtos", rotulo: "Produtos" },
+  { href: "/lojinha/admin/resumo", rotulo: "Resumo" },
+  { href: "/lojinha/admin/config", rotulo: "Configurações" },
 ];
 
 export function NavAdmin() {
@@ -15,7 +15,7 @@ export function NavAdmin() {
   return (
     <nav className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4">
       {LINKS.map((l) => {
-        const ativo = l.href === "/admin" ? caminho === "/admin" : caminho.startsWith(l.href);
+        const ativo = l.href === "/lojinha/admin" ? caminho === "/lojinha/admin" : caminho.startsWith(l.href);
         return (
           <Link
             key={l.href}

@@ -15,7 +15,7 @@ export async function definirStatus(pedidoId: string, status: StatusPedido) {
   const supabase = await createClient();
   const { error } = await supabase.rpc("definir_status_pedido", { p_id: pedidoId, p_status: status });
   if (error) return { erro: error.message };
-  revalidatePath("/admin", "layout");
+  revalidatePath("/lojinha/admin", "layout");
   return { ok: true };
 }
 
