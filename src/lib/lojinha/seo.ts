@@ -27,10 +27,8 @@ export const carregarSeo = cache(async () => {
   };
 });
 
-// Endereço da lojinha: o configurado no admin, senão o site principal + /lojinha
+// Endereço da lojinha: o configurado no admin, senão o site principal — sempre terminando em /lojinha
 function urlBase(configurada?: string) {
-  const url = configurada?.trim()
-    ? configurada.trim()
-    : `${process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000"}/lojinha`;
-  return url.replace(/\/+$/, "");
+  const url = (configurada?.trim() || process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000").replace(/\/+$/, "");
+  return url.endsWith("/lojinha") ? url : `${url}/lojinha`;
 }

@@ -19,7 +19,7 @@ export default async function Vitrine() {
     name: seo.titulo,
     description: seo.descricao,
     url: seo.urlSite,
-    logo: `${seo.urlSite}/web-app-manifest-512x512.png`,
+    logo: new URL("/favicon/web-app-manifest-512x512.png", seo.urlSite).href,
     sameAs: ["https://www.cerejabloom.com.br", ...(seo.instagram ? [`https://www.instagram.com/${seo.instagram}`] : [])],
   };
 

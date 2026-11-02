@@ -142,7 +142,7 @@ export function SecaoSeo({ config, urlPadrao }: Props) {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
           />
-          <span className="mt-1 block text-xs text-grafite">Vazio = endereço da Vercel. Preencha se usar domínio próprio.</span>
+          <span className="mt-1 block text-xs text-grafite">Vazio = endereço do site principal. O /lojinha é adicionado automaticamente.</span>
         </label>
         <label className="block">
           <span className="mb-1 block text-sm font-medium">Instagram</span>
